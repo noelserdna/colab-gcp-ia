@@ -1,8 +1,10 @@
-# Capa 1 del embudo AI-first · Ingesta de datos en GCP
+# Cuadernos Colab · GCP + IA (embudo AI-first)
 
-Serie de cuadernos de Google Colab para aprender, desde cero, la **capa de ingesta de datos** en Google Cloud Platform.
+Colección de cuadernos de **Google Colab** para aprender, desde cero y con mucho detalle, a construir el **embudo AI-first** sobre Google Cloud: desde la **ingesta de datos** hasta el **RAG** y el **fine-tuning** de modelos. Cada cuaderno es material de aprendizaje autoexplicado, pensado para impartirse como clase o seguirse en solitario.
 
-## Cuadernos
+## Índice de cuadernos
+
+### Serie · Capa 1 — Ingesta de datos en GCP
 
 | # | Cuaderno | Abrir en Colab |
 |---|----------|----------------|
@@ -10,7 +12,26 @@ Serie de cuadernos de Google Colab para aprender, desde cero, la **capa de inges
 | 0 | Fundamentos y setup | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/noelserdna/capa1-ingesta-colab/blob/main/00_fundamentos_setup.ipynb) |
 | 1 | Ingesta batch: API pública → BigQuery | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/noelserdna/capa1-ingesta-colab/blob/main/01_batch_api_a_bigquery.ipynb) |
 
-## Qué cubre el Notebook 0.0 (Panorama)
+### RAG y vectorización con BigQuery
+
+| Cuaderno | Abrir en Colab |
+|----------|----------------|
+| De la bandeja de entrada al RAG: vectorización de emails con BigQuery | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/noelserdna/capa1-ingesta-colab/blob/main/curso_rag_emails_bigquery_v2.ipynb) |
+
+### Fine-tuning de LLMs
+
+Subproyecto en [`fine/`](fine/) — detalles en [`fine/README.md`](fine/README.md).
+
+| Cuaderno | Abrir en Colab |
+|----------|----------------|
+| Probar el modelo entrenado (chat + `backend_sim`) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/noelserdna/capa1-ingesta-colab/blob/main/fine/notebooks/probar_modelo_reservas.ipynb) |
+| Entrenar (QLoRA con Unsloth) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/noelserdna/capa1-ingesta-colab/blob/main/fine/notebooks/finetune_gemma4_reservas.ipynb) |
+
+---
+
+## Qué cubre cada cuaderno
+
+### 0.0 · Panorama de la Capa 1
 
 Clase magistral de 90 min que da el **mapa de toda la Capa 1** antes de bajar al detalle práctico. Caso conductor **InnovaCo**, stack didáctico Notion + Google Workspace + Telegram + Neon Postgres.
 
@@ -21,7 +42,7 @@ Clase magistral de 90 min que da el **mapa de toda la Capa 1** antes de bajar al
 - Trampas transversales, biblioteca de prompts reutilizables y guía de setup del stack en 30 min.
 - Incluye celdas Python ejecutables (mapa mental, recomendador de tecnología, plantilla de prompts) que corren sin ningún setup.
 
-## Qué cubre el Notebook 0
+### 0 · Fundamentos y setup
 
 - Qué es la nube, GCP y Colab (con analogías).
 - Python mínimo imprescindible (variables, diccionarios, listas, funciones).
@@ -33,7 +54,7 @@ Clase magistral de 90 min que da el **mapa de toda la Capa 1** antes de bajar al
 
 **Tiempo estimado:** 60-90 min.
 
-## Qué cubre el Notebook 1
+### 1 · Ingesta batch: API pública → BigQuery
 
 Tu **primera ingesta de datos real**: traer información de una fuente externa y dejarla en BigQuery, lista para que una IA razone sobre ella.
 
@@ -47,18 +68,31 @@ Tu **primera ingesta de datos real**: traer información de una fuente externa y
 
 **Requisito:** Notebook 0 completado (entorno en verde). **Tiempo estimado:** ~60 min.
 
-## Extra · Fine-tuning de un LLM (asistente de reservas)
+### RAG · Vectorización de emails con BigQuery
 
-En [`fine/`](fine/) hay un subproyecto aparte: especializar **Gemma 4 E2B** con **QLoRA** para un asistente de reservas de instalaciones que conversa y **llama a herramientas** (consultar disponibilidad, crear/cancelar reservas…) sobre un **backend simulado**. Incluye el dataset sintético (1.200 conversaciones), el backend, los notebooks y el **adapter ya entrenado**. Detalles en [`fine/README.md`](fine/README.md).
+Curso práctico (~90 min) que construye, paso a paso, un sistema **RAG (Retrieval-Augmented Generation)** sobre el correo de una tienda de perfumes ficticia (*Esencia Ibérica, S.L.*): preguntar en lenguaje natural sobre decenas de emails de consultas, pedidos, quejas y devoluciones.
 
-| Cuaderno | Abrir en Colab |
-|----------|----------------|
-| Probar el modelo entrenado (chat + `backend_sim`) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/noelserdna/capa1-ingesta-colab/blob/main/fine/notebooks/probar_modelo_reservas.ipynb) |
-| Entrenar (QLoRA con Unsloth) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/noelserdna/capa1-ingesta-colab/blob/main/fine/notebooks/finetune_gemma4_reservas.ipynb) |
+- La decisión de diseño de partida: **documentos sueltos vs. base de datos**.
+- **Extract & Load** de emails sintéticos a BigQuery; **Transform**: limpieza y *chunking*.
+- Conexión a **Vertex AI** y embeddings en SQL con **`ML.GENERATE_EMBEDDING`** (incluido el parámetro `task_type` que casi todos ignoran).
+- **Búsqueda semántica** con `VECTOR_SEARCH` y búsqueda **híbrida** (semántica + filtros SQL).
+- De la búsqueda al **RAG** (buscador + dos pasos); anexo **RAG vs. CAG**.
+- **Vectorización incremental** en producción (patrón *anti-join*), evaluación del retrieval, ejercicios y limpieza de recursos.
+
+**Tiempo estimado:** ~90 min. Requiere un proyecto GCP con BigQuery y Vertex AI habilitados.
+
+### Fine-tuning · Asistente de reservas (Gemma 4 E2B)
+
+Subproyecto en [`fine/`](fine/): especializar **Gemma 4 E2B** con **QLoRA** para un asistente de reservas de instalaciones deportivas (*Polideportivo Municipal Las Encinas*) que conversa y **llama a herramientas** (consultar disponibilidad, crear / consultar / modificar / cancelar reservas…) sobre un **backend simulado**. Incluye el dataset sintético (~1.200 conversaciones), el backend, los dos cuadernos y el **adapter ya entrenado**.
+
+- **Entrenar** — QLoRA con Unsloth sobre Gemma 4 E2B.
+- **Probar** — cargar el adapter entrenado y charlar con el modelo, con `backend_sim` ejecutando de verdad las llamadas a herramientas (bucle completo *modelo ↔ datos*). Requiere GPU (T4).
+
+---
 
 ## Uso
 
-Abre cualquier cuaderno con su badge **Open in Colab** o clónalo:
+Abre cualquier cuaderno con su badge **Open in Colab**, o clona el repositorio:
 
 ```bash
 git clone https://github.com/noelserdna/capa1-ingesta-colab.git
