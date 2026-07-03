@@ -13,8 +13,8 @@ siempre** hacia el objetivo: que el usuario reserve o conozca el estado de su re
 
 | Cuaderno | Abrir |
 |----------|-------|
-| **Probar el modelo entrenado** (chat + `backend_sim`) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/noelserdna/capa1-ingesta-colab/blob/main/fine/notebooks/probar_modelo_reservas.ipynb) |
-| **Entrenar** (QLoRA con Unsloth) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/noelserdna/capa1-ingesta-colab/blob/main/fine/notebooks/finetune_gemma4_reservas.ipynb) |
+| **Probar el modelo entrenado** (chat + `backend_sim`) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/noelserdna/colab-gcp-ia/blob/main/fine/notebooks/probar_modelo_reservas.ipynb) |
+| **Entrenar** (QLoRA con Unsloth) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/noelserdna/colab-gcp-ia/blob/main/fine/notebooks/finetune_gemma4_reservas.ipynb) |
 
 > El notebook de prueba **ya trae el adapter entrenado** (incluido en el repo): solo
 > abre, pon GPU T4 y ejecuta.

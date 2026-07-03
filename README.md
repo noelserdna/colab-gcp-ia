@@ -8,15 +8,15 @@ Colección de cuadernos de **Google Colab** para aprender, desde cero y con much
 
 | # | Cuaderno | Abrir en Colab |
 |---|----------|----------------|
-| 0.0 | Panorama de la Capa 1 (clase de 90 min: las 7 tecnologías de ingesta) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/noelserdna/capa1-ingesta-colab/blob/main/00_0_panorama_capa1_ingesta.ipynb) |
-| 0 | Fundamentos y setup | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/noelserdna/capa1-ingesta-colab/blob/main/00_fundamentos_setup.ipynb) |
-| 1 | Ingesta batch: API pública → BigQuery | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/noelserdna/capa1-ingesta-colab/blob/main/01_batch_api_a_bigquery.ipynb) |
+| 0.0 | Panorama de la Capa 1 (clase de 90 min: las 7 tecnologías de ingesta) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/noelserdna/colab-gcp-ia/blob/main/00_0_panorama_capa1_ingesta.ipynb) |
+| 0 | Fundamentos y setup | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/noelserdna/colab-gcp-ia/blob/main/00_fundamentos_setup.ipynb) |
+| 1 | Ingesta batch: API pública → BigQuery | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/noelserdna/colab-gcp-ia/blob/main/01_batch_api_a_bigquery.ipynb) |
 
 ### RAG y vectorización con BigQuery
 
 | Cuaderno | Abrir en Colab |
 |----------|----------------|
-| De la bandeja de entrada al RAG: vectorización de emails con BigQuery | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/noelserdna/capa1-ingesta-colab/blob/main/curso_rag_emails_bigquery_v2.ipynb) |
+| De la bandeja de entrada al RAG: vectorización de emails con BigQuery | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/noelserdna/colab-gcp-ia/blob/main/curso_rag_emails_bigquery_v2.ipynb) |
 
 ### Fine-tuning de LLMs
 
@@ -24,8 +24,8 @@ Subproyecto en [`fine/`](fine/) — detalles en [`fine/README.md`](fine/README.m
 
 | Cuaderno | Abrir en Colab |
 |----------|----------------|
-| Probar el modelo entrenado (chat + `backend_sim`) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/noelserdna/capa1-ingesta-colab/blob/main/fine/notebooks/probar_modelo_reservas.ipynb) |
-| Entrenar (QLoRA con Unsloth) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/noelserdna/capa1-ingesta-colab/blob/main/fine/notebooks/finetune_gemma4_reservas.ipynb) |
+| Probar el modelo entrenado (chat + `backend_sim`) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/noelserdna/colab-gcp-ia/blob/main/fine/notebooks/probar_modelo_reservas.ipynb) |
+| Entrenar (QLoRA con Unsloth) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/noelserdna/colab-gcp-ia/blob/main/fine/notebooks/finetune_gemma4_reservas.ipynb) |
 
 ---
 
@@ -95,5 +95,5 @@ Subproyecto en [`fine/`](fine/): especializar **Gemma 4 E2B** con **QLoRA** para
 Abre cualquier cuaderno con su badge **Open in Colab**, o clona el repositorio:
 
 ```bash
-git clone https://github.com/noelserdna/capa1-ingesta-colab.git
+git clone https://github.com/noelserdna/colab-gcp-ia.git
 ```
