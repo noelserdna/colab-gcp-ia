@@ -16,7 +16,8 @@ Colección de cuadernos de **Google Colab** para aprender, desde cero y con much
 
 | Cuaderno | Abrir en Colab |
 |----------|----------------|
-| De la bandeja de entrada al RAG: vectorización de emails con BigQuery | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/noelserdna/colab-gcp-ia/blob/main/curso_rag_emails_bigquery_v2.ipynb) |
+| 1 · De la bandeja de entrada al RAG: vectorización de emails con BigQuery | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/noelserdna/colab-gcp-ia/blob/main/curso_rag_emails_bigquery_v2.ipynb) |
+| 2 · Del PDF al RAG: documentos con estructura (Document AI + BigQuery) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/noelserdna/colab-gcp-ia/blob/main/curso_rag_pdf_polizas_bigquery.ipynb) |
 
 ### Fine-tuning de LLMs
 
@@ -80,6 +81,19 @@ Curso práctico (~90 min) que construye, paso a paso, un sistema **RAG (Retrieva
 - **Vectorización incremental** en producción (patrón *anti-join*), evaluación del retrieval, ejercicios y limpieza de recursos.
 
 **Tiempo estimado:** ~90 min. Requiere un proyecto GCP con BigQuery y Vertex AI habilitados.
+
+### RAG · Del PDF al RAG: documentos con estructura
+
+Continuación del anterior (~90 min). Mismo pipeline, fuente radicalmente distinta: los **condicionados de seguro en PDF** de *Peñalara Seguros, S.A.*. Un PDF no es un formato de datos, es un formato de presentación — hay que **reconstruir** el texto y su estructura antes de poder vectorizar nada.
+
+- **Qué cambia respecto a los emails**: el texto no viene dado, hay layout (páginas, columnas, tablas) y hay que poder **citar la página y la cláusula**.
+- **El caso que lo vertebra**: *"¿me cubre el agua de lluvia?"* — el mismo riesgo aparece en **coberturas** (pág. 4) y en **exclusiones** (pág. 5). Un chunk sin su título jerárquico hace que el RAG **le mienta al cliente** con total seguridad.
+- **Cloud Storage + object tables**: por qué los binarios no viven en BigQuery.
+- **Document AI Layout Parser** vía `ML.PROCESS_DOCUMENT`, con `include_ancestor_headings` — la opción que salva el sistema.
+- **El contraste**, ejecutado en vivo: chunking naive (`pypdf` + cortar por caracteres) vs. Layout Parser.
+- **RAG con citas verificables** (póliza, página, cláusula) y **versionado de documentos** (`DELETE`+`INSERT`: una póliza nueva *sustituye* a la vieja, un email nunca lo hacía).
+
+**Requisito:** proyecto GCP con **facturación activa** — ⚠️ Document AI no tiene capa gratuita ($10/1.000 págs; este cuaderno procesa 24 págs ≈ **$0,24**).
 
 ### Fine-tuning · Asistente de reservas (Gemma 4 E2B)
 
