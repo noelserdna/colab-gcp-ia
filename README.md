@@ -18,6 +18,7 @@ Colección de cuadernos de **Google Colab** para aprender, desde cero y con much
 |----------|----------------|
 | 1 · De la bandeja de entrada al RAG: vectorización de emails con BigQuery | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/noelserdna/colab-gcp-ia/blob/main/curso_rag_emails_bigquery_v2.ipynb) |
 | 2 · Del PDF al RAG: documentos con estructura (Document AI + BigQuery) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/noelserdna/colab-gcp-ia/blob/main/curso_rag_pdf_polizas_bigquery.ipynb) |
+| 3 · RAG sobre PDF con un OCR open-source en tu GPU (Unlimited-OCR) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/noelserdna/colab-gcp-ia/blob/main/curso_rag_pdf_ocr_opensource.ipynb) |
 
 ### Fine-tuning de LLMs
 
@@ -92,6 +93,18 @@ Continuación del anterior (~90 min). Mismo pipeline, fuente radicalmente distin
 - **Document AI Layout Parser** vía `ML.PROCESS_DOCUMENT`, con `include_ancestor_headings` — la opción que salva el sistema.
 - **El contraste**, ejecutado en vivo: chunking naive (`pypdf` + cortar por caracteres) vs. Layout Parser.
 - **RAG con citas verificables** (póliza, página, cláusula) y **versionado de documentos** (`DELETE`+`INSERT`: una póliza nueva *sustituye* a la vieja, un email nunca lo hacía).
+
+### RAG · PDF con un OCR open-source en tu GPU
+
+Mismo caso y mismo pipeline que el anterior, pero **sustituyendo la extracción**: en vez de la API de Document AI, un modelo abierto ([`baidu/Unlimited-OCR`](https://huggingface.co/baidu/Unlimited-OCR), MIT, sucesor de DeepSeek-OCR) corriendo en la **GPU del propio Colab**. Requiere GPU (T4 vale, L4/A100 mejor).
+
+- **El porqué — soberanía del dato**: en seguros/salud/legal, mandar documentos con datos personales a una API de terceros es un problema de cumplimiento. Con un OCR local, **el PDF nunca sale de la máquina**.
+- **PDF → imágenes → markdown**: se rasteriza cada página (PyMuPDF) y el modelo la *lee* (`infer_multi`), devolviendo markdown con estructura; se rastrea la página por el separador `<PAGE>`.
+- **El chunking es tuyo**: se trocea el markdown respetando sus encabezados y anteponiendo la sección a cada chunk — a mano, lo que Document AI daba hecho.
+- **El contraste**: OCR self-hosted vs. API gestionada (coste, velocidad, control, soberanía).
+- De la sección de embeddings en adelante, **el pipeline es idéntico** a los otros dos cursos — la extracción es intercambiable.
+
+**Requisito:** GPU en Colab + proyecto GCP con BigQuery y Vertex AI. Sin coste por página (la extracción es local y gratis).
 
 **Requisito:** proyecto GCP con **facturación activa** — ⚠️ Document AI no tiene capa gratuita ($10/1.000 págs; este cuaderno procesa 24 págs ≈ **$0,24**).
 
