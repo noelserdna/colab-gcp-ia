@@ -20,6 +20,7 @@ Colección de cuadernos de **Google Colab** para aprender, desde cero y con much
 | 2 · Del PDF al RAG: documentos con estructura (Document AI + BigQuery) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/noelserdna/colab-gcp-ia/blob/main/curso_rag_pdf_polizas_bigquery.ipynb) |
 | 3 · RAG sobre PDF con un OCR open-source en tu GPU (Unlimited-OCR) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/noelserdna/colab-gcp-ia/blob/main/curso_rag_pdf_ocr_opensource.ipynb) |
 | 4 · RAG con soberanía total: Postgres+pgvector + Gemma, todo self-hosted | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/noelserdna/colab-gcp-ia/blob/main/curso_rag_selfhosted_pgvector.ipynb) |
+| 5 · Fine-tuning de Gemma 4 para el RAG (QLoRA con Unsloth) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/noelserdna/colab-gcp-ia/blob/main/curso_finetuning_gemma_seguros.ipynb) |
 
 ### Fine-tuning de LLMs
 
@@ -120,6 +121,17 @@ El cierre de la serie: fuera BigQuery, fuera Vertex, fuera Gemini. El RAG comple
 - **Comparativa honesta** self-hosted vs. gestionado (privacidad, coste, mantenimiento, calidad) y **borrado de la VM** al final para no dejar coste.
 
 **Requisito:** GPU en Colab + proyecto GCP con facturación (una VM `e2-medium`). El paso previo —extraer el texto— se cubre en el curso 3.
+
+### RAG · Fine-tuning de Gemma 4 para el RAG
+
+Continuación del anterior: afinamos el modelo generador para el **estilo Peñalara** y enchufamos el adapter al RAG self-hosted. Solo GPU (T4).
+
+- **El porqué, con honestidad**: el fine-tuning **no añade conocimiento** (eso lo da el RAG); da **estilo y consistencia** — citar siempre la cláusula, nunca confundir cobertura con exclusión, tono de asesor.
+- **QLoRA con Unsloth** sobre `gemma-4-E4B-it` (4-bit, entra en T4): LoRA, `train_on_responses_only`, dataset sintético `(contexto + pregunta) → respuesta ideal` generado desde el catálogo de pólizas.
+- **Antes vs. después**: se compara la misma pregunta trampa con el modelo base y el afinado.
+- **Se guarda solo el adapter** (unos MB) y se muestra cómo **cargarlo con `peft` puro** (sin Unsloth) para enchufarlo al Cuaderno 4 sin tocar el resto del pipeline.
+
+**Requisito:** GPU en Colab. Cierra la serie self-hosted (cursos 4 + 5).
 
 ### Fine-tuning · Asistente de reservas (Gemma 4 E2B)
 
