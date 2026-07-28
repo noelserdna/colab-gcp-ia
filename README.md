@@ -19,6 +19,7 @@ Colección de cuadernos de **Google Colab** para aprender, desde cero y con much
 | 1 · De la bandeja de entrada al RAG: vectorización de emails con BigQuery | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/noelserdna/colab-gcp-ia/blob/main/curso_rag_emails_bigquery_v2.ipynb) |
 | 2 · Del PDF al RAG: documentos con estructura (Document AI + BigQuery) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/noelserdna/colab-gcp-ia/blob/main/curso_rag_pdf_polizas_bigquery.ipynb) |
 | 3 · RAG sobre PDF con un OCR open-source en tu GPU (Unlimited-OCR) | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/noelserdna/colab-gcp-ia/blob/main/curso_rag_pdf_ocr_opensource.ipynb) |
+| 4 · RAG con soberanía total: Postgres+pgvector + Gemma, todo self-hosted | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/noelserdna/colab-gcp-ia/blob/main/curso_rag_selfhosted_pgvector.ipynb) |
 
 ### Fine-tuning de LLMs
 
@@ -107,6 +108,18 @@ Mismo caso y mismo pipeline que el anterior, pero **sustituyendo la extracción*
 **Requisito:** GPU en Colab + proyecto GCP con BigQuery y Vertex AI. Sin coste por página (la extracción es local y gratis).
 
 **Requisito:** proyecto GCP con **facturación activa** — ⚠️ Document AI no tiene capa gratuita ($10/1.000 págs; este cuaderno procesa 24 págs ≈ **$0,24**).
+
+### RAG · Soberanía total: Postgres + pgvector + Gemma
+
+El cierre de la serie: fuera BigQuery, fuera Vertex, fuera Gemini. El RAG completo sobre **infraestructura propia** — el único tercero es GCloud como IaaS.
+
+- **Vector store propio**: **PostgreSQL + `pgvector`** en una VM de Compute Engine (creada con `gcloud` desde el Colab, vía *startup-script*), conectada de forma segura por **túnel IAP** (sin abrir puertos a internet).
+- **Embeddings open-source**: `BAAI/bge-m3` (MIT, 1024 dims) en la GPU — el `ML.GENERATE_EMBEDDING` de Vertex se sustituye por `SentenceTransformer`.
+- **Búsqueda en SQL**: el `VECTOR_SEARCH` pasa a ser `ORDER BY embedding <=> consulta` con índice **HNSW** de pgvector.
+- **Generación con Gemma 4** (E4B, Apache 2.0) en 4-bit en la GPU, en vez de Gemini.
+- **Comparativa honesta** self-hosted vs. gestionado (privacidad, coste, mantenimiento, calidad) y **borrado de la VM** al final para no dejar coste.
+
+**Requisito:** GPU en Colab + proyecto GCP con facturación (una VM `e2-medium`). El paso previo —extraer el texto— se cubre en el curso 3.
 
 ### Fine-tuning · Asistente de reservas (Gemma 4 E2B)
 
